@@ -6,6 +6,7 @@ CNewSoftDlg::CNewSoftDlg(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
+
 }
 
 CNewSoftDlg::~CNewSoftDlg()
@@ -22,6 +23,8 @@ void CNewSoftDlg::GetValue(QString & sName, QString & sKey)
 CNewLicDlg::CNewLicDlg(QWidget *parent)
 {
 	ui.setupUi(this);
+
+	connect(ui.pushButton_makeLic, SIGNAL(clicked()), this, SLOT(OnBtnMakeLic()));
 }
 
 CNewLicDlg::~CNewLicDlg()
@@ -35,7 +38,7 @@ void CNewLicDlg::GetValue(sLicRecordInfo & infoLic)
 	infoLic.nLicType = ui.comboBox_LicType->currentIndex();
 	infoLic.sDisc = ui.lineEdit_disc->text();
 	infoLic.sUserName = ui.lineEdit_userName->text();
-	infoLic.sMacCode = ui.lineEdit_macCode->text();
+	infoLic.sMacCode = ui.lineEdit_macCode->toPlainText();
 	infoLic.dtStart = ui.dateTimeEdit_from->dateTime();
 	infoLic.dtEnd = ui.dateTimeEdit_to->dateTime();
 }
@@ -46,6 +49,11 @@ void CNewLicDlg::SetSoftMap(const map<QString, int> & softmap)
 	{
 		ui.comboBox_softName->addItem(iter->first, iter->second);
 	}
+}
+
+void CNewLicDlg::OnBtnMakeLic()
+{
+	ui.textEdit_licCode->setText("aaaaaaaaaaaa");
 }
 
 makeUserLic::makeUserLic(QWidget *parent)

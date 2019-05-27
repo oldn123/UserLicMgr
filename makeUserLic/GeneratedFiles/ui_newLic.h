@@ -21,6 +21,8 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
@@ -38,7 +40,7 @@ public:
     QLineEdit *lineEdit_userName;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_3;
-    QLineEdit *lineEdit_macCode;
+    QTextEdit *lineEdit_macCode;
     QHBoxLayout *horizontalLayout_7;
     QLabel *label_7;
     QComboBox *comboBox_LicType;
@@ -51,13 +53,15 @@ public:
     QHBoxLayout *horizontalLayout_6;
     QLabel *label_5;
     QDateTimeEdit *dateTimeEdit_to;
+    QPushButton *pushButton_makeLic;
+    QTextEdit *textEdit_licCode;
     QDialogButtonBox *buttonBox;
 
     void setupUi(QDialog *newLic)
     {
         if (newLic->objectName().isEmpty())
             newLic->setObjectName(QStringLiteral("newLic"));
-        newLic->resize(278, 259);
+        newLic->resize(391, 411);
         verticalLayout_2 = new QVBoxLayout(newLic);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout = new QVBoxLayout();
@@ -99,7 +103,7 @@ public:
 
         horizontalLayout_3->addWidget(label_3);
 
-        lineEdit_macCode = new QLineEdit(newLic);
+        lineEdit_macCode = new QTextEdit(newLic);
         lineEdit_macCode->setObjectName(QStringLiteral("lineEdit_macCode"));
 
         horizontalLayout_3->addWidget(lineEdit_macCode);
@@ -170,6 +174,16 @@ public:
 
         verticalLayout_2->addLayout(verticalLayout);
 
+        pushButton_makeLic = new QPushButton(newLic);
+        pushButton_makeLic->setObjectName(QStringLiteral("pushButton_makeLic"));
+
+        verticalLayout_2->addWidget(pushButton_makeLic);
+
+        textEdit_licCode = new QTextEdit(newLic);
+        textEdit_licCode->setObjectName(QStringLiteral("textEdit_licCode"));
+
+        verticalLayout_2->addWidget(textEdit_licCode);
+
         buttonBox = new QDialogButtonBox(newLic);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
         buttonBox->setOrientation(Qt::Horizontal);
@@ -177,23 +191,6 @@ public:
 
         verticalLayout_2->addWidget(buttonBox);
 
-        buttonBox->raise();
-        comboBox_softName->raise();
-        label->raise();
-        lineEdit_userName->raise();
-        label_2->raise();
-        label_3->raise();
-        lineEdit_macCode->raise();
-        dateTimeEdit_from->raise();
-        label_4->raise();
-        label_5->raise();
-        dateTimeEdit_to->raise();
-        label_6->raise();
-        lineEdit_disc->raise();
-        lineEdit_disc->raise();
-        label_6->raise();
-        comboBox_LicType->raise();
-        label_7->raise();
 
         retranslateUi(newLic);
         QObject::connect(buttonBox, SIGNAL(accepted()), newLic, SLOT(accept()));
@@ -205,10 +202,10 @@ public:
     void retranslateUi(QDialog *newLic)
     {
         newLic->setWindowTitle(QApplication::translate("newLic", "\346\226\260\345\273\272\346\216\210\346\235\203", 0));
-        label->setText(QApplication::translate("newLic", "\344\272\247\345\223\201", 0));
+        label->setText(QApplication::translate("newLic", "\344\272\247    \345\223\201", 0));
         label_2->setText(QApplication::translate("newLic", "\347\224\250\346\210\267\345\220\215\347\247\260", 0));
         label_3->setText(QApplication::translate("newLic", "\346\234\272 \345\231\250 \347\240\201", 0));
-        label_7->setText(QApplication::translate("newLic", "\347\261\273\345\236\213", 0));
+        label_7->setText(QApplication::translate("newLic", "\347\261\273    \345\236\213", 0));
         comboBox_LicType->clear();
         comboBox_LicType->insertItems(0, QStringList()
          << QApplication::translate("newLic", "\350\257\225\347\224\250", 0)
@@ -217,6 +214,7 @@ public:
         label_6->setText(QApplication::translate("newLic", "\346\217\217    \350\277\260", 0));
         label_4->setText(QApplication::translate("newLic", "\350\265\267\345\247\213\346\227\266\351\227\264", 0));
         label_5->setText(QApplication::translate("newLic", "\347\273\210\346\255\242\346\227\266\351\227\264", 0));
+        pushButton_makeLic->setText(QApplication::translate("newLic", "\347\224\237\346\210\220\346\216\210\346\235\203", 0));
     } // retranslateUi
 
 };
