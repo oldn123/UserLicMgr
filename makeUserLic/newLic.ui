@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>278</width>
-    <height>259</height>
+    <width>391</width>
+    <height>411</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>产品</string>
+          <string>产    品</string>
          </property>
         </widget>
        </item>
@@ -54,7 +54,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_macCode"/>
+        <widget class="QTextEdit" name="lineEdit_macCode"/>
        </item>
       </layout>
      </item>
@@ -63,7 +63,7 @@
        <item>
         <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>类型</string>
+          <string>类    型</string>
          </property>
         </widget>
        </item>
@@ -128,6 +128,16 @@
     </layout>
    </item>
    <item>
+    <widget class="QPushButton" name="pushButton_makeLic">
+     <property name="text">
+      <string>生成授权</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTextEdit" name="textEdit_licCode"/>
+   </item>
+   <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -138,23 +148,6 @@
     </widget>
    </item>
   </layout>
-  <zorder>buttonBox</zorder>
-  <zorder>comboBox_softName</zorder>
-  <zorder>label</zorder>
-  <zorder>lineEdit_userName</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label_3</zorder>
-  <zorder>lineEdit_macCode</zorder>
-  <zorder>dateTimeEdit_from</zorder>
-  <zorder>label_4</zorder>
-  <zorder>label_5</zorder>
-  <zorder>dateTimeEdit_to</zorder>
-  <zorder>label_6</zorder>
-  <zorder>lineEdit_disc</zorder>
-  <zorder>lineEdit_disc</zorder>
-  <zorder>label_6</zorder>
-  <zorder>comboBox_LicType</zorder>
-  <zorder>label_7</zorder>
  </widget>
  <resources/>
  <connections>
@@ -165,8 +158,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>257</x>
+     <y>401</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -181,8 +174,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>325</x>
+     <y>401</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

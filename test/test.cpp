@@ -17,6 +17,8 @@ BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 
+typedef int (*funcptr)();
+
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPTSTR    lpCmdLine,
@@ -24,7 +26,23 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 {
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
-	checka();
+
+
+	HMODULE h = LoadLibrary(L"checklic.dll");
+	if (h)
+	{
+		funcptr fp = (funcptr)GetProcAddress(h, "checka");
+		if (fp)
+		{
+			fp();
+			MessageBox(NULL, L"checklic ¼ÓÔØÍê³É", L"", 0);
+		}
+	}
+	else
+	{
+		//MessageBox(NULL, L"¶ªÊ§checklic.dll", L"", 0);
+	}
+
  	// TODO: Place code here.
 	MSG msg;
 	HACCEL hAccelTable;

@@ -49,6 +49,7 @@ private:
 
 class CNewLicDlg : public QDialog
 {
+	Q_OBJECT
 public:
 	CNewLicDlg(QWidget *parent = 0);
 	~CNewLicDlg();
@@ -56,6 +57,9 @@ public:
 	void SetSoftMap(const map<QString, int> &);
 
 	void GetValue(sLicRecordInfo & infoLic);
+private slots:
+	void OnBtnMakeLic();
+
 private:
 	Ui::newLic ui;
 };
