@@ -1,8 +1,9 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
-
-#include <IPHlpApi.h>  
-#include <stdio.h>
+#include "stdio.h"
+#include "..\..\softlic\source\api.h"
+#include <time.h> 
+#include <process.h>
 using namespace std;
 #pragma comment(lib, "IPHlpApi.Lib")  
 
@@ -20,76 +21,6 @@ dog_handle_t hdog = 0;
 #endif
 
 
-
-
-
-bool getAdapterState(DWORD index)
-{
-	MIB_IFROW Info;    // 存放获取到的Adapter参数
-	memset(&Info, 0, sizeof(MIB_IFROW));
-	Info.dwIndex = index; // dwIndex是需要获取的Adapter的索引，可以通过GetAdaptersInfo和其他相关函数获取
-	if (GetIfEntry(&Info) != NOERROR)
-	{
-		return false;
-	}
-	if (Info.dwOperStatus == IF_OPER_STATUS_NON_OPERATIONAL
-		|| Info.dwOperStatus == IF_OPER_STATUS_UNREACHABLE
-		|| Info.dwOperStatus == IF_OPER_STATUS_DISCONNECTED
-
-		|| Info.dwOperStatus == IF_OPER_STATUS_CONNECTING)
-		return false;
-	else if (Info.dwOperStatus == IF_OPER_STATUS_OPERATIONAL
-
-		|| Info.dwOperStatus == IF_OPER_STATUS_CONNECTED)
-		return true;
-
-	return false;
-}
-
-int getLocalInfo(char * mac, char * ipMe)
-{
-	IP_ADAPTER_INFO IOInfo[20];
-	PIP_ADAPTER_INFO pIOInfo = NULL;
-	DWORD Result = 0;
-	unsigned long nLen = sizeof(IOInfo);
-
-	Result = GetAdaptersInfo(IOInfo, &nLen);
-	pIOInfo = &IOInfo[0];
-	bool bGetOK = false;
-	while (pIOInfo)
-	{
-		IP_ADDR_STRING *pIpAddrString = &(pIOInfo->IpAddressList);
-		if (bGetOK || !getAdapterState(pIOInfo->Index))
-		{
-			//网络未连接
-			pIOInfo = pIOInfo->Next;
-			continue;
-		}
-
-		{	
-			if (/*strstr(pIOInfo->Description, "PCI")>0 &&*/ pIOInfo->Type == MIB_IF_TYPE_ETHERNET) //有线网可用时直接返回
-			{
-				bGetOK = true;
-			}	
-			else if (pIOInfo->Type == 71)	//无线网络
-			{
-				bGetOK = true;
-			}
-
-			if (bGetOK)
-			{
-				//仅考虑有线网络与无线网络
-				strcpy(ipMe, pIpAddrString->IpAddress.String);
-				sprintf(mac, "%2x:%2x:%2x:%2x:%2x:%2x", pIOInfo->Address[0], pIOInfo->Address[1], pIOInfo->Address[2],
-					pIOInfo->Address[3], pIOInfo->Address[4], pIOInfo->Address[5]);
-			}
-		}
-
-		pIOInfo = pIOInfo->Next;
-	}
-
-	return 0;
-}
 
 
 
@@ -128,10 +59,104 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 #else
 			
 
-			char sMac[100] = {0};
+			char sMacMe[100] = {0};
 			char sIp[100] = {0};
-			getLocalInfo(sMac, sIp);
-			MessageBoxA(0, sMac, sIp, 0);
+			getLocalInfo(sMacMe, sIp);
+		
+
+			char * sModulePath = _GetModulePath(hModule);
+			char sLicFile[260] = {0};
+			strcpy(sLicFile, sModulePath);
+			strcat(sLicFile, "license");
+			char sTime[100];
+			char sEncodes[1024];
+			FILE * fp = fopen(sLicFile, "rb");
+			if (fp)
+			{
+				fseek(fp, 0, SEEK_END);
+				long llen = ftell(fp);
+				char * sfileData = new char[llen];
+				fseek(fp, 0, SEEK_SET);
+				fread(sfileData, 1, llen, fp);
+				fclose(fp);
+
+				char * sFind = sfileData;
+				
+				memset(sTime, 0, 100);
+				memset(sEncodes, 0, 1024);
+				do 
+				{
+					char * sf1 = strstr(sFind, "\r\n");
+					if (!sf1)
+					{
+						sf1 = strstr(sFind, "\n\r");
+					}
+					if (sf1)
+					{
+						int ncnt = sf1 - sFind;
+						memcpy(sTime, sFind, ncnt);
+						sFind += (ncnt + 2);		
+						sf1 = strstr(sFind, "\r\n");
+						if (sf1)
+						{
+							ncnt = sf1 - sFind;
+							sFind += (ncnt + 2);
+							memcpy(sEncodes, sFind, ncnt);
+							sf1 = strstr(sFind, "\r\n");
+							if (sf1)
+							{
+							}
+						}
+						else
+						{
+							ncnt = llen - ncnt - 3;
+							memcpy(sEncodes, sFind, ncnt);
+						}
+					}
+				} while (0);
+				
+				delete [] sfileData;
+			}
+
+			char sOut[1000];
+			char sOut1[1000];
+			decodeData(sOut, sEncodes, "~!@#$%^&");
+
+			decodeData(sOut1, sOut, ")(*&^%$#");
+
+			char sMac[12];
+			memcpy(sMac, sOut1, 12);
+			
+			BYTE byteCode = 0;
+			memcpy(&byteCode, &sOut1[12], 1);
+
+			char sTimeDecode[20];
+			memcpy(sTimeDecode, &sOut1[13], 19);
+
+			for (int i =0; i < 12; i++)
+			{
+				if (sMac[i] != sMacMe[i])
+				{
+					_exit(0);
+				}
+			}
+
+			if (byteCode == 't')
+			{
+				time_t tm1 = StringToDatetime(sTimeDecode);
+				time_t t = time(NULL); //获取目前秒时间  
+			
+				if (tm1 < t)
+				{
+					//outtimes
+					_exit(0);
+				}
+			}
+			else
+			if (byteCode != 'l')
+			{
+				_exit(0);
+			}
 #endif
 		}
 	case DLL_THREAD_ATTACH:

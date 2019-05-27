@@ -18,5 +18,9 @@
 #include <tchar.h>
 
 #include "..\checklic\checklic.h"
+#ifdef _DEBUG
+#pragma comment(lib, "..\\debug\\checkLic.lib")
+#else
 #pragma comment(lib, "..\\release\\checkLic.lib")
+#endif
 // TODO: reference additional headers your program requires here

@@ -81,6 +81,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\softlic\source\1004FCE0.cpp" />
+    <ClCompile Include="..\..\softlic\source\CBase64Code.cpp" />
     <ClCompile Include="checkLic.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
