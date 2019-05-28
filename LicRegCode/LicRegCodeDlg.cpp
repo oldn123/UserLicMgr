@@ -12,7 +12,6 @@
 using namespace std;
 #pragma comment(lib, "IPHlpApi.Lib")  
 
-#include "..\..\softlic\source\api.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -111,16 +110,13 @@ BOOL CLicRegCodeDlg::OnInitDialog()
 	char sMac[100];
 	char sIp[100];
 	getLocalInfo(sMac, sIp);
-	if(encodeData(sOut, sMac, "~!@#$%^&") == -1)
+	if(MacEncode(sOut, sMac, "~!@#$%^&", "<>{}()|&") == -1)
 	{
 		AfxMessageBox(L"丢失必要文件，请联系管理员");
 		_exit(0);
 	}
-
-	char sOut2[1024];
-	encodeData(sOut2, sOut, ")(*&^%$#");
 	USES_CONVERSION;
-	CString sBuf =A2T(sOut2);
+	CString sBuf =A2T(sOut);
 	SetDlgItemText(IDC_RICHEDIT21, sBuf);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control

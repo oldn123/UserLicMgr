@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "makeUserLic", "makeUserLic\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LicRegCode", "LicRegCode\LicRegCode.vcxproj", "{977BF4E9-3DD5-458C-A9DE-AFD628C05301}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "codedepend", "codedepend\codedepend.vcxproj", "{C5E7A0DB-BDEC-484D-BBA3-50AD04286773}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -37,6 +39,10 @@ Global
 		{977BF4E9-3DD5-458C-A9DE-AFD628C05301}.Debug|Win32.Build.0 = Debug|Win32
 		{977BF4E9-3DD5-458C-A9DE-AFD628C05301}.Release|Win32.ActiveCfg = Release|Win32
 		{977BF4E9-3DD5-458C-A9DE-AFD628C05301}.Release|Win32.Build.0 = Release|Win32
+		{C5E7A0DB-BDEC-484D-BBA3-50AD04286773}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C5E7A0DB-BDEC-484D-BBA3-50AD04286773}.Debug|Win32.Build.0 = Debug|Win32
+		{C5E7A0DB-BDEC-484D-BBA3-50AD04286773}.Release|Win32.ActiveCfg = Release|Win32
+		{C5E7A0DB-BDEC-484D-BBA3-50AD04286773}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

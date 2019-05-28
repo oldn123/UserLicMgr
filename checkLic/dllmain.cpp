@@ -1,6 +1,7 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
 #include "stdio.h"
+#define _CHECKLIC_MODE
 #include "..\..\softlic\source\api.h"
 #include <time.h> 
 #include <process.h>
@@ -52,111 +53,12 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 					break;
 				}
 			}
-
-//			memset(g_sSign, 0, 10);
-// 			ret = dog_read(hdog, 1, 0, 8, g_sSign);
-// 			ret = dog_read(hdog, 2, 0, 4, &g_nNodeSize);	
-#else
-			
-
-			char sMacMe[100] = {0};
-			char sIp[100] = {0};
-			getLocalInfo(sMacMe, sIp);
-		
-
+#else		
 			char * sModulePath = _GetModulePath(hModule);
 			char sLicFile[260] = {0};
 			strcpy(sLicFile, sModulePath);
 			strcat(sLicFile, "license");
-			char sTime[100];
-			char sEncodes[1024];
-			FILE * fp = fopen(sLicFile, "rb");
-			if (fp)
-			{
-				fseek(fp, 0, SEEK_END);
-				long llen = ftell(fp);
-				char * sfileData = new char[llen];
-				fseek(fp, 0, SEEK_SET);
-				fread(sfileData, 1, llen, fp);
-				fclose(fp);
-
-				char * sFind = sfileData;
-				
-				memset(sTime, 0, 100);
-				memset(sEncodes, 0, 1024);
-				do 
-				{
-					char * sf1 = strstr(sFind, "\r\n");
-					if (!sf1)
-					{
-						sf1 = strstr(sFind, "\n\r");
-					}
-					if (sf1)
-					{
-						int ncnt = sf1 - sFind;
-						memcpy(sTime, sFind, ncnt);
-						sFind += (ncnt + 2);		
-						sf1 = strstr(sFind, "\r\n");
-						if (sf1)
-						{
-							ncnt = sf1 - sFind;
-							sFind += (ncnt + 2);
-							memcpy(sEncodes, sFind, ncnt);
-							sf1 = strstr(sFind, "\r\n");
-							if (sf1)
-							{
-							}
-						}
-						else
-						{
-							ncnt = llen - ncnt - 3;
-							memcpy(sEncodes, sFind, ncnt);
-						}
-					}
-				} while (0);
-				
-				delete [] sfileData;
-			}
-
-			char sOut[1000];
-			char sOut1[1000];
-			decodeData(sOut, sEncodes, "~!@#$%^&");
-
-			decodeData(sOut1, sOut, ")(*&^%$#");
-
-			char sMac[12];
-			memcpy(sMac, sOut1, 12);
-			
-			BYTE byteCode = 0;
-			memcpy(&byteCode, &sOut1[12], 1);
-
-			char sTimeDecode[20];
-			memcpy(sTimeDecode, &sOut1[13], 19);
-
-			for (int i =0; i < 12; i++)
-			{
-				if (sMac[i] != sMacMe[i])
-				{
-					_exit(0);
-				}
-			}
-
-			if (byteCode == 't')
-			{
-				time_t tm1 = StringToDatetime(sTimeDecode);
-				time_t t = time(NULL); //获取目前秒时间  
-			
-				if (tm1 < t)
-				{
-					//outtimes
-					_exit(0);
-				}
-			}
-			else
-			if (byteCode != 'l')
-			{
-				_exit(0);
-			}
+			checkLicFile(sLicFile, "~!@#$%^&", ")(*&^%$#");
 #endif
 		}
 	case DLL_THREAD_ATTACH:

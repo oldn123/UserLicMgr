@@ -1,6 +1,7 @@
 #include "makeuserlic.h"
 #include <QMessageBox>
-
+#include "..\codedepend\LicSupport.h"
+#pragma comment(lib, "..\\release\\codedepend.lib")
 
 CNewSoftDlg::CNewSoftDlg(QWidget *parent)
 	: QDialog(parent)
@@ -53,7 +54,20 @@ void CNewLicDlg::SetSoftMap(const map<QString, int> & softmap)
 
 void CNewLicDlg::OnBtnMakeLic()
 {
-	ui.textEdit_licCode->setText("aaaaaaaaaaaa");
+	QString sMacCode = ui.lineEdit_macCode->toPlainText();
+
+	char sOut[1024] = {0};
+	bool br = CLicSupport::decodeMac(sOut, sMacCode.toStdString().c_str(), "~!@#$%^&", "<>{}()|&");
+
+	if (strlen(sOut) > 0)
+	{
+		ui.textEdit_licCode->setText(sOut);
+	}
+	else
+	{
+		ui.textEdit_licCode->setText("find error!");
+	}
+
 }
 
 makeUserLic::makeUserLic(QWidget *parent)

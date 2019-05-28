@@ -40,6 +40,8 @@
 
 
 
+#define _MAKELIC_MODE
+#include "..\..\softlic\source\api.h"
 
 
 

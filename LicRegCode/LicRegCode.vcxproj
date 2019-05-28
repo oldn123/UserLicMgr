@@ -107,8 +107,12 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\softlic\source\1004FCE0.cpp" />
-    <ClCompile Include="..\..\softlic\source\CBase64Code.cpp" />
+    <ClCompile Include="..\..\softlic\source\1004FCE0.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\softlic\source\CBase64Code.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="LicRegCode.cpp" />
     <ClCompile Include="LicRegCodeDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
