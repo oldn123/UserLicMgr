@@ -44,15 +44,13 @@ public:
     QHBoxLayout *horizontalLayout_7;
     QLabel *label_7;
     QComboBox *comboBox_LicType;
+    QHBoxLayout *horizontalLayout_6;
+    QLabel *label_5;
+    QDateTimeEdit *dateTimeEdit_to;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_6;
     QLineEdit *lineEdit_disc;
     QHBoxLayout *horizontalLayout_5;
-    QLabel *label_4;
-    QDateTimeEdit *dateTimeEdit_from;
-    QHBoxLayout *horizontalLayout_6;
-    QLabel *label_5;
-    QDateTimeEdit *dateTimeEdit_to;
     QPushButton *pushButton_makeLic;
     QTextEdit *textEdit_licCode;
     QDialogButtonBox *buttonBox;
@@ -126,6 +124,21 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_7);
 
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        label_5 = new QLabel(newLic);
+        label_5->setObjectName(QStringLiteral("label_5"));
+
+        horizontalLayout_6->addWidget(label_5);
+
+        dateTimeEdit_to = new QDateTimeEdit(newLic);
+        dateTimeEdit_to->setObjectName(QStringLiteral("dateTimeEdit_to"));
+
+        horizontalLayout_6->addWidget(dateTimeEdit_to);
+
+
+        verticalLayout->addLayout(horizontalLayout_6);
+
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         label_6 = new QLabel(newLic);
@@ -143,33 +156,8 @@ public:
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
-        label_4 = new QLabel(newLic);
-        label_4->setObjectName(QStringLiteral("label_4"));
-
-        horizontalLayout_5->addWidget(label_4);
-
-        dateTimeEdit_from = new QDateTimeEdit(newLic);
-        dateTimeEdit_from->setObjectName(QStringLiteral("dateTimeEdit_from"));
-
-        horizontalLayout_5->addWidget(dateTimeEdit_from);
-
 
         verticalLayout->addLayout(horizontalLayout_5);
-
-        horizontalLayout_6 = new QHBoxLayout();
-        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        label_5 = new QLabel(newLic);
-        label_5->setObjectName(QStringLiteral("label_5"));
-
-        horizontalLayout_6->addWidget(label_5);
-
-        dateTimeEdit_to = new QDateTimeEdit(newLic);
-        dateTimeEdit_to->setObjectName(QStringLiteral("dateTimeEdit_to"));
-
-        horizontalLayout_6->addWidget(dateTimeEdit_to);
-
-
-        verticalLayout->addLayout(horizontalLayout_6);
 
 
         verticalLayout_2->addLayout(verticalLayout);
@@ -211,9 +199,9 @@ public:
          << QApplication::translate("newLic", "\350\257\225\347\224\250", 0)
          << QApplication::translate("newLic", "\346\255\243\345\274\217", 0)
         );
-        label_6->setText(QApplication::translate("newLic", "\346\217\217    \350\277\260", 0));
-        label_4->setText(QApplication::translate("newLic", "\350\265\267\345\247\213\346\227\266\351\227\264", 0));
         label_5->setText(QApplication::translate("newLic", "\347\273\210\346\255\242\346\227\266\351\227\264", 0));
+        dateTimeEdit_to->setDisplayFormat(QApplication::translate("newLic", "yyyy-MM-dd HH:mm:ss", 0));
+        label_6->setText(QApplication::translate("newLic", "\346\217\217    \350\277\260", 0));
         pushButton_makeLic->setText(QApplication::translate("newLic", "\347\224\237\346\210\220\346\216\210\346\235\203", 0));
     } // retranslateUi
 

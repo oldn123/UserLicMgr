@@ -1,7 +1,14 @@
 #include "makeuserlic.h"
 #include <QMessageBox>
+#include <QApplication>
+#include <qdir.h>
 #include "..\codedepend\LicSupport.h"
+#ifdef QT_DEBUG
+#pragma comment(lib, "..\\debug\\codedepend.lib")
+#else
 #pragma comment(lib, "..\\release\\codedepend.lib")
+#endif
+
 
 CNewSoftDlg::CNewSoftDlg(QWidget *parent)
 	: QDialog(parent)
@@ -24,8 +31,11 @@ void CNewSoftDlg::GetValue(QString & sName, QString & sKey)
 CNewLicDlg::CNewLicDlg(QWidget *parent)
 {
 	ui.setupUi(this);
-
+	ui.lineEdit_macCode->setPlainText("ZWQ0YTY1ZTVhOGYzZGIxNDliNzhmYWJmOGNhMWM2ZjgwMTVmMTkxZTk2ZmE2NjMzNTNkZjAzNDlmODBlOTBiY2NmZThiYjQ1NmVhMTgzMzc3MjY4ZDkwNzZmZTBkNmFm");
 	connect(ui.pushButton_makeLic, SIGNAL(clicked()), this, SLOT(OnBtnMakeLic()));
+
+	ui.comboBox_LicType->setItemData(0, 't');
+	ui.comboBox_LicType->setItemData(1, 'l');
 }
 
 CNewLicDlg::~CNewLicDlg()
@@ -40,7 +50,6 @@ void CNewLicDlg::GetValue(sLicRecordInfo & infoLic)
 	infoLic.sDisc = ui.lineEdit_disc->text();
 	infoLic.sUserName = ui.lineEdit_userName->text();
 	infoLic.sMacCode = ui.lineEdit_macCode->toPlainText();
-	infoLic.dtStart = ui.dateTimeEdit_from->dateTime();
 	infoLic.dtEnd = ui.dateTimeEdit_to->dateTime();
 }
 
@@ -56,12 +65,31 @@ void CNewLicDlg::OnBtnMakeLic()
 {
 	QString sMacCode = ui.lineEdit_macCode->toPlainText();
 
-	char sOut[1024] = {0};
-	bool br = CLicSupport::decodeMac(sOut, sMacCode.toStdString().c_str(), "~!@#$%^&", "<>{}()|&");
-
-	if (strlen(sOut) > 0)
+	char sMac[100] = {0};
+	bool br = CLicSupport::decodeMac(sMac, sMacCode.toStdString().c_str(), "~!@#$%^&", "<>{}()|&");
+	if (br)
 	{
-		ui.textEdit_licCode->setText(sOut);
+		QString qUser = ui.lineEdit_userName->text();
+		QString qSoft = ui.comboBox_softName->currentText();
+		QString qPath = QCoreApplication::applicationDirPath();
+		qPath += "/";
+		qPath += qSoft;
+		qPath += "/";
+		qPath += qUser;
+		qPath += "/";
+		
+
+		QDir dir;
+		if(dir.mkpath(qPath))
+		qPath += "license";
+
+		CLicSupport::makeLicFile((char*)qPath.toStdString().c_str(),"~!@#$%^&", ")(*&^%$#",sMac,
+			ui.dateTimeEdit_to->text().toStdString().c_str(),ui.comboBox_LicType->currentData().toChar().unicode());
+	}
+
+	if (strlen(sMac) > 0)
+	{
+		ui.textEdit_licCode->setText(sMac);
 	}
 	else
 	{

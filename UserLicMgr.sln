@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LicRegCode", "LicRegCode\Li
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "codedepend", "codedepend\codedepend.vcxproj", "{C5E7A0DB-BDEC-484D-BBA3-50AD04286773}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "qt", "qt", "{9D3B6470-981A-4DAF-9F62-65BC9668C145}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -46,5 +48,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C5E7A0DB-BDEC-484D-BBA3-50AD04286773} = {9D3B6470-981A-4DAF-9F62-65BC9668C145}
+		{A9585C88-93C6-4853-AEEE-59ECB63EB9A5} = {9D3B6470-981A-4DAF-9F62-65BC9668C145}
 	EndGlobalSection
 EndGlobal

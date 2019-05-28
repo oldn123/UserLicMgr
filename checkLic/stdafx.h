@@ -11,6 +11,6 @@
 // Windows Header Files:
 #include <windows.h>
 
-
+#define _CHECKLIC_MODE
 
 // TODO: reference additional headers your program requires here

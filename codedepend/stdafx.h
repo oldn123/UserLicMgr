@@ -12,6 +12,7 @@
 #include <windows.h>
 
 #define _MAKELIC_MODE
+#define _CHECKLIC_MODE
 #include "..\..\softlic\source\api.h"
 
 // TODO: reference additional headers your program requires here

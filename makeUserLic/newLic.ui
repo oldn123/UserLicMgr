@@ -84,6 +84,24 @@
       </layout>
      </item>
      <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>终止时间</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDateTimeEdit" name="dateTimeEdit_to">
+         <property name="displayFormat">
+          <string>yyyy-MM-dd HH:mm:ss</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
         <widget class="QLabel" name="label_6">
@@ -98,32 +116,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
-       <item>
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>起始时间</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QDateTimeEdit" name="dateTimeEdit_from"/>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_6">
-       <item>
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>终止时间</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QDateTimeEdit" name="dateTimeEdit_to"/>
-       </item>
-      </layout>
+      <layout class="QHBoxLayout" name="horizontalLayout_5"/>
      </item>
     </layout>
    </item>
