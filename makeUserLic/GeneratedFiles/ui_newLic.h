@@ -35,15 +35,15 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *label;
     QComboBox *comboBox_softName;
+    QHBoxLayout *horizontalLayout_7;
+    QLabel *label_7;
+    QComboBox *comboBox_LicType;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label_2;
     QLineEdit *lineEdit_userName;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_3;
     QTextEdit *lineEdit_macCode;
-    QHBoxLayout *horizontalLayout_7;
-    QLabel *label_7;
-    QComboBox *comboBox_LicType;
     QHBoxLayout *horizontalLayout_6;
     QLabel *label_5;
     QDateTimeEdit *dateTimeEdit_to;
@@ -79,6 +79,21 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
+        label_7 = new QLabel(newLic);
+        label_7->setObjectName(QStringLiteral("label_7"));
+
+        horizontalLayout_7->addWidget(label_7);
+
+        comboBox_LicType = new QComboBox(newLic);
+        comboBox_LicType->setObjectName(QStringLiteral("comboBox_LicType"));
+
+        horizontalLayout_7->addWidget(comboBox_LicType);
+
+
+        verticalLayout->addLayout(horizontalLayout_7);
+
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         label_2 = new QLabel(newLic);
@@ -108,21 +123,6 @@ public:
 
 
         verticalLayout->addLayout(horizontalLayout_3);
-
-        horizontalLayout_7 = new QHBoxLayout();
-        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
-        label_7 = new QLabel(newLic);
-        label_7->setObjectName(QStringLiteral("label_7"));
-
-        horizontalLayout_7->addWidget(label_7);
-
-        comboBox_LicType = new QComboBox(newLic);
-        comboBox_LicType->setObjectName(QStringLiteral("comboBox_LicType"));
-
-        horizontalLayout_7->addWidget(comboBox_LicType);
-
-
-        verticalLayout->addLayout(horizontalLayout_7);
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
@@ -190,18 +190,18 @@ public:
     void retranslateUi(QDialog *newLic)
     {
         newLic->setWindowTitle(QApplication::translate("newLic", "\346\226\260\345\273\272\346\216\210\346\235\203", 0));
-        label->setText(QApplication::translate("newLic", "\344\272\247    \345\223\201", 0));
-        label_2->setText(QApplication::translate("newLic", "\347\224\250\346\210\267\345\220\215\347\247\260", 0));
-        label_3->setText(QApplication::translate("newLic", "\346\234\272 \345\231\250 \347\240\201", 0));
-        label_7->setText(QApplication::translate("newLic", "\347\261\273    \345\236\213", 0));
+        label->setText(QApplication::translate("newLic", "\344\272\247    \345\223\201\357\274\232", 0));
+        label_7->setText(QApplication::translate("newLic", "\346\216\210\346\235\203\347\261\273\345\236\213\357\274\232", 0));
         comboBox_LicType->clear();
         comboBox_LicType->insertItems(0, QStringList()
          << QApplication::translate("newLic", "\350\257\225\347\224\250", 0)
          << QApplication::translate("newLic", "\346\255\243\345\274\217", 0)
         );
-        label_5->setText(QApplication::translate("newLic", "\347\273\210\346\255\242\346\227\266\351\227\264", 0));
+        label_2->setText(QApplication::translate("newLic", "\347\224\250\346\210\267\345\220\215\347\247\260\357\274\232", 0));
+        label_3->setText(QApplication::translate("newLic", "\346\234\272 \345\231\250 \347\240\201\357\274\232", 0));
+        label_5->setText(QApplication::translate("newLic", "\347\273\210\346\255\242\346\227\266\351\227\264\357\274\232", 0));
         dateTimeEdit_to->setDisplayFormat(QApplication::translate("newLic", "yyyy-MM-dd HH:mm:ss", 0));
-        label_6->setText(QApplication::translate("newLic", "\346\217\217    \350\277\260", 0));
+        label_6->setText(QApplication::translate("newLic", "\350\257\264    \346\230\216\357\274\232", 0));
         pushButton_makeLic->setText(QApplication::translate("newLic", "\347\224\237\346\210\220\346\216\210\346\235\203", 0));
     } // retranslateUi
 

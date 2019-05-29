@@ -40,7 +40,7 @@ int CUserDB::GetSoftMap(map<QString,int> & qm)
 	return qm.size();
 }
 
-int CUserDB::AddSoft( const QString & sSoftName, const QString & sKey )
+int CUserDB::AddSoft( sSoftRecordInfo & sri )
 {
 	//创建表格
 	QSqlQuery sql_query;
@@ -50,7 +50,7 @@ int CUserDB::AddSoft( const QString & sSoftName, const QString & sKey )
 	sql_query.exec(selectsql);
 	if(!sql_query.next())
 	{
-		if(!sql_query.exec("create table soft(id INTEGER PRIMARY KEY AUTOINCREMENT, name text, key text)"))
+		if(!sql_query.exec("create table soft(id INTEGER PRIMARY KEY AUTOINCREMENT, name text, softId text, key1 text, key2 text)"))
 		{
 			qDebug() << "Error: Fail to create table."<< sql_query.lastError();
 			return 0;
@@ -61,7 +61,7 @@ int CUserDB::AddSoft( const QString & sSoftName, const QString & sKey )
 		}		
 	}
 
-	selectsql.sprintf("INSERT INTO soft VALUES(NULL, '%s', '%s')", sSoftName.toStdString().c_str(), sKey.toStdString().c_str());
+	selectsql.sprintf("INSERT INTO soft VALUES(NULL, '%s', '%s', '%s', '%s')", sri.sName.toStdString().c_str(), sri.sSoftId.toStdString().c_str(), sri.sKey1.toStdString().c_str(), sri.sKey2.toStdString().c_str());
 	if(!sql_query.exec(selectsql))
 	{
 		qDebug() << sql_query.lastError();
@@ -93,12 +93,11 @@ int CUserDB::AddUserLic(sLicRecordInfo & info)
 			qDebug() << "Table created!";
 		}		
 	}
-	selectsql.sprintf("INSERT INTO lic VALUES(NULL, %d, '%s', %d, '%s', '%s', '%s', '%s')", 
-		info.nSoftId, 
+	selectsql.sprintf("INSERT INTO lic VALUES(NULL, %s, '%s', %s, '%s', '%s', '%s')", 
+		info.sSoftId, 
 		info.sUserName.toStdString().c_str(), 
-		info.nLicType, 
+		info.sLicType.toStdString().c_str(), 
 		info.sMacCode.toStdString().c_str(), 
-		info.dtStart.toString("yyyy-MM-dd hh:mm:ss").toStdString().c_str(), 
 		info.dtEnd.toString("yyyy-MM-dd hh:mm:ss").toStdString().c_str(), 	
 		info.sDisc.toStdString().c_str()
 		);

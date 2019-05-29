@@ -15,6 +15,7 @@ CNewSoftDlg::CNewSoftDlg(QWidget *parent)
 {
 	ui.setupUi(this);
 
+	connect(ui.buttonBox->button(QDialogButtonBox::Ok), SIGNAL(clicked()), this, SLOT(OnBtnOk()));
 }
 
 CNewSoftDlg::~CNewSoftDlg()
@@ -22,10 +23,24 @@ CNewSoftDlg::~CNewSoftDlg()
 
 }
 
-void CNewSoftDlg::GetValue(QString & sName, QString & sKey)
+void CNewSoftDlg::OnBtnOk()
 {
-	sName = ui.lineEdit_userName->text();
-	sKey = ui.lineEdit_Key->text();
+	bool bError = ui.lineEdit_softName->text().length() < 0;
+	bError |= ui.lineEdit_Key1->text().length() < 0;
+	bError |= ui.lineEdit_Key2->text().length() < 0;
+	bError |= ui.lineEdit_softId->text().length() < 0;
+	if (bError)
+	{
+	}
+	
+}
+
+void CNewSoftDlg::GetValue(sSoftRecordInfo & sri)
+{
+	sri.sName = ui.lineEdit_softName->text();
+	sri.sKey1 = ui.lineEdit_Key1->text();
+	sri.sKey2 = ui.lineEdit_Key2->text();
+	sri.sSoftId = ui.lineEdit_softId->text();
 }
 
 CNewLicDlg::CNewLicDlg(QWidget *parent)
@@ -47,8 +62,8 @@ CNewLicDlg::~CNewLicDlg()
 
 void CNewLicDlg::GetValue(sLicRecordInfo & infoLic)
 {
-	infoLic.nSoftId = ui.comboBox_softName->currentData().toInt();
-	infoLic.nLicType = ui.comboBox_LicType->currentIndex();
+	infoLic.sSoftId = ui.comboBox_softName->currentData().toString();
+	infoLic.sLicType = ui.comboBox_LicType->currentData().toChar();
 	infoLic.sDisc = ui.lineEdit_disc->text();
 	infoLic.sUserName = ui.lineEdit_userName->text();
 	infoLic.sMacCode = ui.lineEdit_macCode->toPlainText();
@@ -170,10 +185,10 @@ void makeUserLic::OnSoftMenu()
 	int n = pdlg->exec();
 	if (n == 1)
 	{
-		QString sName, sKey;
-		pdlg->GetValue(sName, sKey);
-		if(m_db.AddSoft(sName, sKey) > 0){
-			AddPage(sName);
+		sSoftRecordInfo sri;
+		pdlg->GetValue(sri);
+		if(m_db.AddSoft(sri) > 0){
+			AddPage(sri.sName);
 		}
 		else{
 			QMessageBox::warning(this, "add faild", "warning");

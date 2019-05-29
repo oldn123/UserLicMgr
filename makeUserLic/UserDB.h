@@ -6,16 +6,24 @@
 #include <map>
 using namespace std;
 
+struct sSoftRecordInfo
+{
+	int		nRecordId;	
+	QString sName;
+	QString	sSoftId;
+	QString sKey1;
+	QString sKey2;
+};
+
 struct sLicRecordInfo
 {
-	int		nRecordId;
-	int		nSoftId;
-	QString sUserName;
-	QString sMacCode;
-	int		nLicType;
-	QString sDisc;
-	QDateTime dtStart;
-	QDateTime dtEnd;
+	int			nRecordId;
+	QString		sSoftId;
+	QString		sUserName;
+	QString		sMacCode;
+	QString		sLicType;
+	QString		sDisc;
+	QDateTime	dtEnd;
 };
 
 
@@ -28,7 +36,7 @@ public:
 public:
 	int GetSoftMap(map<QString,int> & qm);
 
-	int AddSoft(const QString & sSoftName, const QString & sKey);
+	int AddSoft(sSoftRecordInfo & );
 	int AddUserLic(sLicRecordInfo & );
 
 protected:

@@ -38,11 +38,15 @@ private:
 
 class CNewSoftDlg : public QDialog
 {
+	Q_OBJECT
 public:
 	CNewSoftDlg(QWidget *parent = 0);
 	~CNewSoftDlg();
 
-	void GetValue(QString & sName, QString & sKey);
+	void GetValue(sSoftRecordInfo & si);
+
+	private slots:
+		void OnBtnOk();
 private:
 	Ui::Dialog ui;
 };
