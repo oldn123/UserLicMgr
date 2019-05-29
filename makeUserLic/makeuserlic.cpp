@@ -4,9 +4,9 @@
 #include <qdir.h>
 #include "..\codedepend\LicSupport.h"
 #ifdef QT_DEBUG
-#pragma comment(lib, "..\\debug\\codedepend.lib")
+#pragma comment(lib, "..\\win32\\debug\\codedepend.lib")
 #else
-#pragma comment(lib, "..\\release\\codedepend.lib")
+#pragma comment(lib, "..\\win32\\release\\codedepend.lib")
 #endif
 
 
@@ -34,8 +34,10 @@ CNewLicDlg::CNewLicDlg(QWidget *parent)
 	ui.lineEdit_macCode->setPlainText("ZWQ0YTY1ZTVhOGYzZGIxNDliNzhmYWJmOGNhMWM2ZjgwMTVmMTkxZTk2ZmE2NjMzNTNkZjAzNDlmODBlOTBiY2NmZThiYjQ1NmVhMTgzMzc3MjY4ZDkwNzZmZTBkNmFm");
 	connect(ui.pushButton_makeLic, SIGNAL(clicked()), this, SLOT(OnBtnMakeLic()));
 
-	ui.comboBox_LicType->setItemData(0, 't');
-	ui.comboBox_LicType->setItemData(1, 'l');
+	ui.comboBox_LicType->clear();
+	ui.comboBox_LicType->addItem(QString::fromLocal8Bit("试用-不限ip"), CLicSupport::cTrial_check_time);
+	ui.comboBox_LicType->addItem(QString::fromLocal8Bit("试用-限ip"), CLicSupport::cTrial_check_ip_time);
+	ui.comboBox_LicType->addItem(QString::fromLocal8Bit("正式-限ip"), CLicSupport::cLegal_check_ip);
 }
 
 CNewLicDlg::~CNewLicDlg()

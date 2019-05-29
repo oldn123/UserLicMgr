@@ -12,6 +12,10 @@ public:
 	CLicSupport(void);
 	~CLicSupport(void);
 
+	static char cTrial_check_ip_time;
+	static char cTrial_check_time;
+	static char cLegal_check_ip;
+	
 public:
 	static bool decodeMac(char * sOut, const char* sInput, const char * sKey1, const char * sKey2);
 

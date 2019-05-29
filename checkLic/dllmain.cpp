@@ -58,7 +58,10 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 			char sLicFile[260] = {0};
 			strcpy(sLicFile, sModulePath);
 			strcat(sLicFile, "license");
-			checkLicFile(sLicFile, "~!@#$%^&", ")(*&^%$#");
+			if(checkLicFile(sLicFile, "~!@#$%^&", ")(*&^%$#") < 0)
+			{
+				_exit(0);
+			}
 #endif
 		}
 	case DLL_THREAD_ATTACH:
