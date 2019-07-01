@@ -19,6 +19,6 @@ public:
 public:
 	static bool decodeMac(char * sOut, const char* sInput, const char * sKey1, const char * sKey2);
 
-	static bool makeLicFile(char * sFile, const char *pKey1, const char *pKey2, const char * macCode, const char* sLicTime, char licType);
+	static bool makeLicFile(char * sFile, const char * sSoftId, const char *pKey1, const char *pKey2, const char * macCode, const char* sLicTime, char licType);
 };
 

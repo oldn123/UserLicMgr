@@ -15,6 +15,11 @@ string qstr2str(const QString qstr)
 	return string(cdata);
 }
 
+QString str2qstr(const string str)
+{
+	return QString::fromLocal8Bit(str.data());
+}
+
 CNewSoftDlg::CNewSoftDlg(QWidget *parent)
 	: QDialog(parent)
 {
@@ -54,10 +59,17 @@ CNewLicDlg::CNewLicDlg(QWidget *parent)
 	ui.lineEdit_macCode->setPlainText("ZWQ0YTY1ZTVhOGYzZGIxNDliNzhmYWJmOGNhMWM2ZjgwMTVmMTkxZTk2ZmE2NjMzNTNkZjAzNDlmODBlOTBiY2NmZThiYjQ1NmVhMTgzMzc3MjY4ZDkwNzZmZTBkNmFm");
 	connect(ui.pushButton_makeLic, SIGNAL(clicked()), this, SLOT(OnBtnMakeLic()));
 
+	connect(ui.comboBox_LicType, SIGNAL(currentIndexChanged(int)), this, SLOT(OnLicTypeChanged(int)));
+
+	QDateTime dtNow = QDateTime::currentDateTime();
+	dtNow = dtNow.addMonths(1);
+	ui.dateTimeEdit_to->setDateTime(dtNow);
+
 	ui.comboBox_LicType->clear();
 	ui.comboBox_LicType->addItem(QString::fromLocal8Bit("试用-不限ip"), CLicSupport::cTrial_check_time);
 	ui.comboBox_LicType->addItem(QString::fromLocal8Bit("试用-限ip"), CLicSupport::cTrial_check_ip_time);
 	ui.comboBox_LicType->addItem(QString::fromLocal8Bit("正式-限ip"), CLicSupport::cLegal_check_ip);
+	ui.comboBox_LicType->setCurrentIndex(0);
 }
 
 CNewLicDlg::~CNewLicDlg()
@@ -83,8 +95,30 @@ void CNewLicDlg::SetSoftMap(const map<QString, int> & softmap)
 	}
 }
 
+void CNewLicDlg::OnLicTypeChanged(int nType)
+{
+	if (nType < 0)
+	{
+		return;
+	}
+	char cData = 
+		ui.comboBox_LicType->currentData().toChar().unicode();
+
+	if (cData == CLicSupport::cTrial_check_time)
+	{
+		ui.lineEdit_macCode->setEnabled(false);
+	}
+	else
+	{
+		ui.lineEdit_macCode->setEnabled(true);
+	}
+}
+
 void CNewLicDlg::OnBtnMakeLic()
 {
+	int nIdxSoft = ui.comboBox_softName->currentData().toInt();
+
+
 	QString sMacCode = ui.lineEdit_macCode->toPlainText();
 
 	char sMac[100] = {0};
@@ -105,7 +139,7 @@ void CNewLicDlg::OnBtnMakeLic()
 		if(dir.mkpath(qPath))
 		qPath += "license";
 
-		CLicSupport::makeLicFile((char*)qstr2str(qPath).c_str(),"~!@#$%^&", ")(*&^%$#",sMac,
+		CLicSupport::makeLicFile((char*)qstr2str(qPath).c_str(), "", "~!@#$%^&", ")(*&^%$#",sMac,
 			qstr2str(ui.dateTimeEdit_to->text()).c_str(),ui.comboBox_LicType->currentData().toChar().unicode());
 	}
 

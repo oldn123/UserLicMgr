@@ -63,6 +63,7 @@ public:
 	void GetValue(sLicRecordInfo & infoLic);
 private slots:
 	void OnBtnMakeLic();
+	void OnLicTypeChanged(int);
 
 private:
 	Ui::newLic ui;

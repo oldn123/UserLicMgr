@@ -1,5 +1,6 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
+#include "resource.h"
 #include "stdio.h"
 #define _CHECKLIC_MODE
 #include "..\..\softlic\source\api.h"
@@ -58,7 +59,10 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 			char sLicFile[260] = {0};
 			strcpy(sLicFile, sModulePath);
 			strcat(sLicFile, "license");
-			if(checkLicFile(sLicFile, "~!@#$%^&", ")(*&^%$#") < 0)
+			char sCode[250] = {0};
+			LoadStringA(hModule, IDS_STRING_CODE, sCode, 250);
+			MessageBoxA(NULL, sCode, sCode, 0);
+			if(checkLicFile(sLicFile, sCode, "~!@#$%^&", ")(*&^%$#") < 0)
 			{
 				_exit(0);
 			}

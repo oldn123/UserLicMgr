@@ -20,7 +20,7 @@ bool CLicSupport::decodeMac(char * sOut, const char* sInput, const char * sKey1,
 	return ::MacDecode(sOut, sInput, sKey1, sKey2) == 0;
 }
 
-bool CLicSupport::makeLicFile(char * sFile, const char *pKey1, const char *pKey2, const char * macCode, const char* sLicTime, char licType)
+bool CLicSupport::makeLicFile(char * sFile, const char * sSoftId, const char *pKey1, const char *pKey2, const char * macCode, const char* sLicTime, char licType)
 {
-	return ::makeLicFile(sFile, pKey1, pKey2, macCode, sLicTime, licType) == 0;
+	return ::makeLicFile(sFile, sSoftId, pKey1, pKey2, macCode, sLicTime, licType) == 0;
 }

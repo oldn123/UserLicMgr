@@ -26,6 +26,22 @@ CUserDB::~CUserDB(void)
 {
 }
 
+bool CUserDB::GetSoftInfo(int nIdSoft, sSoftRecordInfo & info)
+{
+	QSqlQuery sql_query;
+	QString selectsql;
+	selectsql ="select * from soft while " ;//是否已经存在表car_bayonet_info
+	sql_query.exec(selectsql);
+	while(sql_query.next())
+	{
+		QString name = sql_query.value(1).toString();
+		qm[name] = sql_query.value(0).toInt();
+	}
+
+
+	return true;
+}
+
 int CUserDB::GetSoftMap(map<QString,int> & qm)
 {
 	QSqlQuery sql_query;

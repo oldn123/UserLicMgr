@@ -35,6 +35,7 @@ public:
 
 public:
 	int GetSoftMap(map<QString,int> & qm);
+	bool GetSoftInfo(int nIdSoft, sSoftRecordInfo &);
 
 	int AddSoft(sSoftRecordInfo & );
 	int AddUserLic(sLicRecordInfo & );
