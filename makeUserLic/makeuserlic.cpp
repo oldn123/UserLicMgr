@@ -9,6 +9,11 @@
 #pragma comment(lib, "..\\win32\\release\\codedepend.lib")
 #endif
 
+string qstr2str(const QString qstr)
+{
+	QByteArray cdata = qstr.toLocal8Bit();
+	return string(cdata);
+}
 
 CNewSoftDlg::CNewSoftDlg(QWidget *parent)
 	: QDialog(parent)
@@ -100,8 +105,8 @@ void CNewLicDlg::OnBtnMakeLic()
 		if(dir.mkpath(qPath))
 		qPath += "license";
 
-		CLicSupport::makeLicFile((char*)qPath.toStdString().c_str(),"~!@#$%^&", ")(*&^%$#",sMac,
-			ui.dateTimeEdit_to->text().toStdString().c_str(),ui.comboBox_LicType->currentData().toChar().unicode());
+		CLicSupport::makeLicFile((char*)qstr2str(qPath).c_str(),"~!@#$%^&", ")(*&^%$#",sMac,
+			qstr2str(ui.dateTimeEdit_to->text()).c_str(),ui.comboBox_LicType->currentData().toChar().unicode());
 	}
 
 	if (strlen(sMac) > 0)
