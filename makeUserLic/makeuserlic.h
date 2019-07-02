@@ -32,8 +32,6 @@ protected:
 
 private:
 	Ui::makeUserLicClass ui;
-
-	CUserDB m_db;
 };
 
 class CNewSoftDlg : public QDialog
@@ -62,6 +60,7 @@ public:
 
 	void GetValue(sLicRecordInfo & infoLic);
 private slots:
+	void OnBtnOpenDir();
 	void OnBtnMakeLic();
 	void OnLicTypeChanged(int);
 

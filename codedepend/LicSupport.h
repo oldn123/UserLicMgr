@@ -16,6 +16,9 @@ public:
 	static char cTrial_check_time;
 	static char cLegal_check_ip;
 	
+	static char* sKey1;
+	static char* sKey2;
+
 public:
 	static bool decodeMac(char * sOut, const char* sInput, const char * sKey1, const char * sKey2);
 

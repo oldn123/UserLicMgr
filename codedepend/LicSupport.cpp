@@ -6,8 +6,12 @@ char CLicSupport::cTrial_check_ip_time = Trial_check_ip_time;
 char CLicSupport::cTrial_check_time = Trial_check_time;
 char CLicSupport::cLegal_check_ip = Legal_check_ip;
 
+char* CLicSupport::sKey1 = GetDefaultKey(0);
+char* CLicSupport::sKey2 = GetDefaultKey(1);
+
 CLicSupport::CLicSupport(void)
 {
+
 }
 
 

@@ -24,13 +24,15 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_newLic
 {
 public:
-    QVBoxLayout *verticalLayout_2;
+    QWidget *widget;
+    QVBoxLayout *verticalLayout_3;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QLabel *label;
@@ -51,27 +53,34 @@ public:
     QLabel *label_6;
     QLineEdit *lineEdit_disc;
     QHBoxLayout *horizontalLayout_5;
+    QVBoxLayout *verticalLayout_2;
     QPushButton *pushButton_makeLic;
-    QTextEdit *textEdit_licCode;
+    QHBoxLayout *horizontalLayout_8;
+    QLineEdit *textEdit_licCode;
+    QPushButton *opendirBtn;
     QDialogButtonBox *buttonBox;
 
     void setupUi(QDialog *newLic)
     {
         if (newLic->objectName().isEmpty())
             newLic->setObjectName(QStringLiteral("newLic"));
-        newLic->resize(391, 411);
-        verticalLayout_2 = new QVBoxLayout(newLic);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        newLic->resize(354, 623);
+        widget = new QWidget(newLic);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(9, 9, 343, 606));
+        verticalLayout_3 = new QVBoxLayout(widget);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        label = new QLabel(newLic);
+        label = new QLabel(widget);
         label->setObjectName(QStringLiteral("label"));
 
         horizontalLayout->addWidget(label);
 
-        comboBox_softName = new QComboBox(newLic);
+        comboBox_softName = new QComboBox(widget);
         comboBox_softName->setObjectName(QStringLiteral("comboBox_softName"));
 
         horizontalLayout->addWidget(comboBox_softName);
@@ -81,12 +90,12 @@ public:
 
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
-        label_7 = new QLabel(newLic);
+        label_7 = new QLabel(widget);
         label_7->setObjectName(QStringLiteral("label_7"));
 
         horizontalLayout_7->addWidget(label_7);
 
-        comboBox_LicType = new QComboBox(newLic);
+        comboBox_LicType = new QComboBox(widget);
         comboBox_LicType->setObjectName(QStringLiteral("comboBox_LicType"));
 
         horizontalLayout_7->addWidget(comboBox_LicType);
@@ -96,12 +105,12 @@ public:
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        label_2 = new QLabel(newLic);
+        label_2 = new QLabel(widget);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         horizontalLayout_2->addWidget(label_2);
 
-        lineEdit_userName = new QLineEdit(newLic);
+        lineEdit_userName = new QLineEdit(widget);
         lineEdit_userName->setObjectName(QStringLiteral("lineEdit_userName"));
 
         horizontalLayout_2->addWidget(lineEdit_userName);
@@ -111,12 +120,12 @@ public:
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        label_3 = new QLabel(newLic);
+        label_3 = new QLabel(widget);
         label_3->setObjectName(QStringLiteral("label_3"));
 
         horizontalLayout_3->addWidget(label_3);
 
-        lineEdit_macCode = new QTextEdit(newLic);
+        lineEdit_macCode = new QTextEdit(widget);
         lineEdit_macCode->setObjectName(QStringLiteral("lineEdit_macCode"));
 
         horizontalLayout_3->addWidget(lineEdit_macCode);
@@ -126,12 +135,12 @@ public:
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        label_5 = new QLabel(newLic);
+        label_5 = new QLabel(widget);
         label_5->setObjectName(QStringLiteral("label_5"));
 
         horizontalLayout_6->addWidget(label_5);
 
-        dateTimeEdit_to = new QDateTimeEdit(newLic);
+        dateTimeEdit_to = new QDateTimeEdit(widget);
         dateTimeEdit_to->setObjectName(QStringLiteral("dateTimeEdit_to"));
 
         horizontalLayout_6->addWidget(dateTimeEdit_to);
@@ -141,12 +150,12 @@ public:
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        label_6 = new QLabel(newLic);
+        label_6 = new QLabel(widget);
         label_6->setObjectName(QStringLiteral("label_6"));
 
         horizontalLayout_4->addWidget(label_6);
 
-        lineEdit_disc = new QLineEdit(newLic);
+        lineEdit_disc = new QLineEdit(widget);
         lineEdit_disc->setObjectName(QStringLiteral("lineEdit_disc"));
 
         horizontalLayout_4->addWidget(lineEdit_disc);
@@ -160,24 +169,39 @@ public:
         verticalLayout->addLayout(horizontalLayout_5);
 
 
-        verticalLayout_2->addLayout(verticalLayout);
+        verticalLayout_3->addLayout(verticalLayout);
 
-        pushButton_makeLic = new QPushButton(newLic);
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        pushButton_makeLic = new QPushButton(widget);
         pushButton_makeLic->setObjectName(QStringLiteral("pushButton_makeLic"));
 
         verticalLayout_2->addWidget(pushButton_makeLic);
 
-        textEdit_licCode = new QTextEdit(newLic);
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        textEdit_licCode = new QLineEdit(widget);
         textEdit_licCode->setObjectName(QStringLiteral("textEdit_licCode"));
 
-        verticalLayout_2->addWidget(textEdit_licCode);
+        horizontalLayout_8->addWidget(textEdit_licCode);
 
-        buttonBox = new QDialogButtonBox(newLic);
+        opendirBtn = new QPushButton(widget);
+        opendirBtn->setObjectName(QStringLiteral("opendirBtn"));
+
+        horizontalLayout_8->addWidget(opendirBtn);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_8);
+
+
+        verticalLayout_3->addLayout(verticalLayout_2);
+
+        buttonBox = new QDialogButtonBox(widget);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
 
-        verticalLayout_2->addWidget(buttonBox);
+        verticalLayout_3->addWidget(buttonBox);
 
 
         retranslateUi(newLic);
@@ -203,6 +227,7 @@ public:
         dateTimeEdit_to->setDisplayFormat(QApplication::translate("newLic", "yyyy-MM-dd HH:mm:ss", 0));
         label_6->setText(QApplication::translate("newLic", "\350\257\264    \346\230\216\357\274\232", 0));
         pushButton_makeLic->setText(QApplication::translate("newLic", "\347\224\237\346\210\220\346\216\210\346\235\203", 0));
+        opendirBtn->setText(QApplication::translate("newLic", "\346\211\223\345\274\200\347\233\256\345\275\225", 0));
     } // retranslateUi
 
 };

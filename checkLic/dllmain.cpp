@@ -62,7 +62,8 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 			char sCode[250] = {0};
 			LoadStringA(hModule, IDS_STRING_CODE, sCode, 250);
 			MessageBoxA(NULL, sCode, sCode, 0);
-			if(checkLicFile(sLicFile, sCode, "~!@#$%^&", ")(*&^%$#") < 0)
+			
+			if(checkLicFile(sLicFile, sCode, GetDefaultKey(0), GetDefaultKey(1)) < 0)
 			{
 				_exit(0);
 			}

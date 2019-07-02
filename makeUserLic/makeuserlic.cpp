@@ -1,6 +1,7 @@
 #include "makeuserlic.h"
 #include <QMessageBox>
 #include <QApplication>
+#include <QDesktopServices>
 #include <qdir.h>
 #include "..\codedepend\LicSupport.h"
 #ifdef QT_DEBUG
@@ -58,7 +59,7 @@ CNewLicDlg::CNewLicDlg(QWidget *parent)
 	ui.setupUi(this);
 	ui.lineEdit_macCode->setPlainText("ZWQ0YTY1ZTVhOGYzZGIxNDliNzhmYWJmOGNhMWM2ZjgwMTVmMTkxZTk2ZmE2NjMzNTNkZjAzNDlmODBlOTBiY2NmZThiYjQ1NmVhMTgzMzc3MjY4ZDkwNzZmZTBkNmFm");
 	connect(ui.pushButton_makeLic, SIGNAL(clicked()), this, SLOT(OnBtnMakeLic()));
-
+	connect(ui.opendirBtn, SIGNAL(clicked()), this, SLOT(OnBtnOpenDir()));
 	connect(ui.comboBox_LicType, SIGNAL(currentIndexChanged(int)), this, SLOT(OnLicTypeChanged(int)));
 
 	QDateTime dtNow = QDateTime::currentDateTime();
@@ -114,20 +115,41 @@ void CNewLicDlg::OnLicTypeChanged(int nType)
 	}
 }
 
+void CNewLicDlg::OnBtnOpenDir()
+{
+	QString sLicFile = ui.textEdit_licCode->text();
+	int nidx = sLicFile.lastIndexOf('\\');
+	if (nidx < 0)
+	{
+		nidx = sLicFile.lastIndexOf('/');
+	}
+	sLicFile = sLicFile.left(nidx);
+	bool ok = QDesktopServices::openUrl(QUrl::fromLocalFile(sLicFile));
+	if (!ok)
+	{
+		QMessageBox::warning(this, "warning", "open path faild");
+	}
+}
+
 void CNewLicDlg::OnBtnMakeLic()
 {
 	int nIdxSoft = ui.comboBox_softName->currentData().toInt();
-
+	sSoftRecordInfo sri;
+	if(!CUserDB::GetInstance().GetSoftInfo(nIdxSoft,sri))
+	{
+		QMessageBox::warning(this, "warning", "query record faild");
+		return ;
+	}
 
 	QString sMacCode = ui.lineEdit_macCode->toPlainText();
 
 	char sMac[100] = {0};
 	bool br = CLicSupport::decodeMac(sMac, sMacCode.toStdString().c_str(), "~!@#$%^&", "<>{}()|&");
+	QString qPath = QCoreApplication::applicationDirPath();
 	if (br)
 	{
 		QString qUser = ui.lineEdit_userName->text();
-		QString qSoft = ui.comboBox_softName->currentText();
-		QString qPath = QCoreApplication::applicationDirPath();
+		QString qSoft = ui.comboBox_softName->currentText();		
 		qPath += "/";
 		qPath += qSoft;
 		qPath += "/";
@@ -139,19 +161,25 @@ void CNewLicDlg::OnBtnMakeLic()
 		if(dir.mkpath(qPath))
 		qPath += "license";
 
-		CLicSupport::makeLicFile((char*)qstr2str(qPath).c_str(), "", "~!@#$%^&", ")(*&^%$#",sMac,
+		br = CLicSupport::makeLicFile((char*)qstr2str(qPath).c_str(), qstr2str(sri.sSoftId).c_str(), CLicSupport::sKey1, CLicSupport::sKey2, sMac,
 			qstr2str(ui.dateTimeEdit_to->text()).c_str(),ui.comboBox_LicType->currentData().toChar().unicode());
-	}
 
-	if (strlen(sMac) > 0)
-	{
-		ui.textEdit_licCode->setText(sMac);
+		if (!br)
+		{
+			QMessageBox::warning(this, "warning", "makeLicFile faild~");
+		}
+		else
+		{
+			if (strlen(sMac) > 0)
+			{
+				ui.textEdit_licCode->setText(qPath);
+			}
+			else
+			{
+				ui.textEdit_licCode->setText("find error!");
+			}
+		}
 	}
-	else
-	{
-		ui.textEdit_licCode->setText("find error!");
-	}
-
 }
 
 makeUserLic::makeUserLic(QWidget *parent)
@@ -169,7 +197,7 @@ makeUserLic::makeUserLic(QWidget *parent)
 	}
 
 	map<QString,int> qm;
-	if(m_db.GetSoftMap(qm) > 0)
+	if(CUserDB::GetInstance().GetSoftMap(qm) > 0)
 	{
 		for (auto iter = qm.begin(); iter != qm.end(); iter++)
 		{
@@ -226,11 +254,11 @@ void makeUserLic::OnSoftMenu()
 	{
 		sSoftRecordInfo sri;
 		pdlg->GetValue(sri);
-		if(m_db.AddSoft(sri) > 0){
+		if(CUserDB::GetInstance().AddSoft(sri) > 0){
 			AddPage(sri.sName);
 		}
 		else{
-			QMessageBox::warning(this, "add faild", "warning");
+			QMessageBox::warning(this, "warning", "add faild");
 		}
 	}
 	delete pdlg;
@@ -240,9 +268,9 @@ void makeUserLic::OnLicMenu()
 {
 	CNewLicDlg dlg;
 	map<QString,int> qm;
-	if(m_db.GetSoftMap(qm) < 1)
+	if(CUserDB::GetInstance().GetSoftMap(qm) < 1)
 	{
-		QMessageBox::warning(this, "add soft first please!", "warning");
+		QMessageBox::warning(this, "warning", "add soft first please!");
 		return ;
 	}
 
@@ -253,9 +281,9 @@ void makeUserLic::OnLicMenu()
 	{
 		sLicRecordInfo mli;
 		dlg.GetValue(mli);
-		if(m_db.AddUserLic(mli) > 0){}
+		if(CUserDB::GetInstance().AddUserLic(mli) > 0){}
 		else{
-			QMessageBox::warning(this, "add faild", "warning");
+			QMessageBox::warning(this, "warning", "add faild");
 		}
 	}
 }

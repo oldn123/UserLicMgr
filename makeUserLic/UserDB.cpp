@@ -4,7 +4,7 @@
 #include <QtSql/QSqlQuery>
 #include <qdebug.h>
 #include <QFileInfo>
-
+CUserDB CUserDB::g_instance;
 CUserDB::CUserDB(void)
 {
 	char * sDbName = "user.db";
@@ -29,17 +29,21 @@ CUserDB::~CUserDB(void)
 bool CUserDB::GetSoftInfo(int nIdSoft, sSoftRecordInfo & info)
 {
 	QSqlQuery sql_query;
-	QString selectsql;
-	selectsql ="select * from soft while " ;//是否已经存在表car_bayonet_info
-	sql_query.exec(selectsql);
-	while(sql_query.next())
+	QString selectsql = QString("select * from soft where %1 = %2").arg("id").arg(nIdSoft);
+	if(sql_query.exec(selectsql))
 	{
-		QString name = sql_query.value(1).toString();
-		qm[name] = sql_query.value(0).toInt();
+		while(sql_query.next())
+		{
+			info.sName = sql_query.value(1).toString();
+			info.sSoftId = sql_query.value(2).toString();
+			info.sKey1 = sql_query.value(3).toString();
+			info.sKey2 = sql_query.value(4).toString();	
+			break;
+		}
+
+		return true;
 	}
-
-
-	return true;
+	return false;
 }
 
 int CUserDB::GetSoftMap(map<QString,int> & qm)

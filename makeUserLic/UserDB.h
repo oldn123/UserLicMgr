@@ -29,9 +29,13 @@ struct sLicRecordInfo
 
 class CUserDB
 {
-public:
+protected:
 	CUserDB(void);
+
+public:
 	~CUserDB(void);
+
+	static CUserDB & GetInstance(){return g_instance;}
 
 public:
 	int GetSoftMap(map<QString,int> & qm);
@@ -42,5 +46,6 @@ public:
 
 protected:
 	QSqlDatabase m_db;
+	static CUserDB g_instance;
 };
 
